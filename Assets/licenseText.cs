@@ -3,24 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class EULA
+{
+    public string start;
+    public string end;
+}
+
 public class licenseText : MonoBehaviour {
 
-    public string[] EULAS;
+    public string[] conditions;
+    public string[] negatives;
+    public GameObject window;
+
+    public EULA[] eulas;
     private Text t;
-    private int currentEULA = 0;
+    public static int currentEULA = 0;
+    public static int currentCondition = 0;
 	// Use this for initialization
 	void Start () {
         t = GetComponent<Text>();
-        t.text = EULAS[currentEULA];
-	}
+        t.text = getText();
+    }
 	
-    public void nextEULA(GameObject o)
+    public string getText()
     {
-        Debug.Log(o.name);
-        if (currentEULA > EULAS.Length) { currentEULA = 0; }
-            currentEULA++;
-            t.text = EULAS[currentEULA];
+        string s ="";
+        s += eulas[currentEULA].start;
+        if (Random.value > .5f)
+        {
+            s += conditions[currentCondition];
+        }
+        else
+        {
+            s += negatives[currentCondition];
+        }
+        s+= eulas[currentEULA].start;
+        return s;
+    }
 
-            
+
+    public void nextEULA()
+    {
+        StartCoroutine(loadNext());
+    }
+
+    public IEnumerator loadNext()
+    {
+        window.SetActive(false);
+        t.text = getText();
+        yield return new WaitForSeconds(1);
+        window.SetActive(true);
     }
 }

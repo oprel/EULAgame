@@ -28,14 +28,15 @@ public class expManager : MonoBehaviour {
             if (!pauseTimer) menuTimer -= Time.deltaTime;
             if (menuTimer < 0 || triggerMenu)
             {
-                //inMenu = true;
+                inMenu = true;
                 menuManager.self.openMenu();
                 menuTimer = waitTime;
+                waitTime *= .7f;
             }
         }
         else
         {
-            Time.timeScale = 0.1f;
+            Time.timeScale = 0.0f;
         }
      
 	}
