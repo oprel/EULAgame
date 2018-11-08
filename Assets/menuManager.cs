@@ -7,6 +7,7 @@ public class menuManager : MonoBehaviour {
     public GameObject[] menus;
     public int currentMenu;
     public GameObject blackBG;
+    public GameObject[] blockingObjects;
 
     // Use this for initialization
     private void Awake()
@@ -29,6 +30,10 @@ public class menuManager : MonoBehaviour {
         menus[currentMenu].SetActive(true);
         blackBG.SetActive(true);
         audioManager.error();
+        foreach (GameObject o in blockingObjects)
+        {
+            o.SetActive(false);
+        }
     }
 
     public void closeMenu(bool agreed)
@@ -38,5 +43,9 @@ public class menuManager : MonoBehaviour {
         currentMenu = (currentMenu + 1) % menus.Length;
         expManager.inMenu = false;
         audioManager.click();
+        foreach (GameObject o in blockingObjects)
+        {
+            o.SetActive(true);
+        }
     }
 }
