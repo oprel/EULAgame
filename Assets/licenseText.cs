@@ -23,7 +23,7 @@ public class licenseText : MonoBehaviour {
     public Text t;
     public Text f;
     public static int currentEULA = 0;
-    public static int currentCondition = 0;
+    public static int currentCondition = 4;
 
     public static bool currentBool;
 	// Use this for initialization
@@ -53,7 +53,7 @@ public class licenseText : MonoBehaviour {
     public void nextEULA(bool agreed)
     {
         audioManager.click();
-        if (currentBool == agreed) StartCoroutine(showFail());
+        if (currentBool == agreed && currentCondition>4) StartCoroutine(showFail());
         currentEULA = (currentEULA + 1) % eulas.Length;
         StartCoroutine(loadNext());
     }
